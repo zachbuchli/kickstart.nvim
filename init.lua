@@ -812,7 +812,48 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'gruvbuddy'
+
+      local colorbuddy = require 'colorbuddy'
+      colorbuddy.colorscheme 'custom'
+      local Color = colorbuddy.Color
+      local Group = colorbuddy.Group
+      local c = colorbuddy.colors
+      local g = colorbuddy.groups
+      local s = colorbuddy.styles
+
+      Color.new('white', '#f2e5bc')
+      Color.new('red', '#cc6666')
+      Color.new('pink', '#fef601')
+      Color.new('green', '#99cc99')
+      Color.new('yellow', '#f8fe7a')
+      Color.new('blue', '#81a2be')
+      Color.new('aqua', '#8ec07c')
+      Color.new('cyan', '#8abeb7')
+      Color.new('purple', '#8e6fbd')
+      Color.new('violet', '#b294bb')
+      Color.new('orange', '#de935f')
+      Color.new('brown', '#a3685a')
+
+      Color.new('seagreen', '#698b69')
+      Color.new('turquoise', '#698b69')
+
+      local background_string = '#111111'
+      Color.new('background', background_string)
+      Color.new('gray0', background_string)
+
+      Group.new('Normal', c.superwhite, c.gray0)
+
+      Group.new('@constant', c.orange, nil, s.none)
+      Group.new('@function', c.yellow, nil, s.none)
+      Group.new('@function.bracket', g.Normal, g.Normal)
+      Group.new('@keyword', c.blue, nil, s.none)
+      Group.new('@keyword.faded', g.nontext.fg:light(), nil, s.none)
+      Group.new('@property', c.blue)
+      Group.new('@variable', c.superwhite, nil)
+      Group.new('@variable.builtin', c.purple:light():light(), g.Normal)
+
+      --vim.cmd.colorscheme 'custom'
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
 
