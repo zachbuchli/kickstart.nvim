@@ -126,7 +126,7 @@ vim.opt.breakindent = true
 
 vim.opt.swapfile = false
 -- Save undo history
-vim.opt.undofile = true
+vim.opt.undofile = false
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -244,6 +244,8 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to force a plugin to be loaded.
   --
+  { 'tpope/vim-fugitive' },
+  --
   --  This is equivalent to:
   --    require('Comment').setup({})
 
@@ -253,16 +255,6 @@ require('lazy').setup({
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
-  {
-    'mbbill/undotree',
-    config = function()
-      vim.opt.backup = false
-      vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
-      vim.opt.undofile = true
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-    end,
-  },
-
   {
     'theprimeagen/harpoon',
     config = function()
@@ -798,19 +790,11 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'rose-pine/neovim',
-    as = 'rose-pine',
+    'ellisonleao/gruvbox.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      require('rose-pine').setup {
-        variant = 'moon',
-      }
-
-      vim.cmd.colorscheme 'rose-pine'
-      --vim.cmd.hi 'Comment gui=none'
+      vim.o.background = 'dark'
+      vim.cmd.colorscheme 'gruvbox'
     end,
   },
 
