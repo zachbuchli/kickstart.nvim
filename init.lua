@@ -169,7 +169,6 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- netrw keymap
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('n', 'Q', '<nop>')
 
 -- Diagnostic keymaps
@@ -263,6 +262,22 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>a', mark.add_file)
       vim.keymap.set('n', '<C-i>', ui.toggle_quick_menu)
+    end,
+  },
+
+  {
+    'stevearc/oil.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('oil').setup {
+        columns = { 'icon', 'size', 'mtime' },
+        view_options = {
+          show_hidden = true,
+        },
+      }
+
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+      vim.keymap.set('n', '<space>-', require('oil').toggle_float)
     end,
   },
 
@@ -790,11 +805,46 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'ellisonleao/gruvbox.nvim',
+    'tjdevries/colorbuddy.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      vim.o.background = 'dark'
-      vim.cmd.colorscheme 'gruvbox'
+      local colorbuddy = require 'colorbuddy'
+      colorbuddy.colorscheme 'custom'
+
+      local Color = colorbuddy.Color
+      local Group = colorbuddy.Group
+      local c = colorbuddy.colors
+      local g = colorbuddy.groups
+      local s = colorbuddy.styles
+
+      Color.new('white', '#f2e5bc')
+      Color.new('red', '#cc6666')
+      Color.new('pink', '#fef601')
+      Color.new('green', '#99cc99')
+      Color.new('yellow', '#f8fe7a')
+      Color.new('blue', '#81a2be')
+      Color.new('aqua', '#8ec07c')
+      Color.new('cyan', '#8abeb7')
+      Color.new('purple', '#8e6fbd')
+      Color.new('violet', '#b294bb')
+      Color.new('orange', '#de935f')
+      Color.new('brown', '#a3685a')
+      Color.new('seagreen', '#698b69')
+      Color.new('turquoise', '#698b69')
+
+      local background_string = '#111111'
+
+      Color.new('background', background_string)
+      Color.new('gray0', background_string)
+      Group.new('Normal', c.superwhite, c.gray0)
+      Group.new('@constant', c.orange, nil, s.none)
+      Group.new('@function', c.yellow, nil, s.none)
+      Group.new('@function.bracket', g.Normal, g.Normal)
+      Group.new('@keyword', c.blue, nil, s.none)
+      Group.new('@keyword.faded', g.nontext.fg:light(), nil, s.none)
+      Group.new('@property', c.blue)
+      Group.new('@variable', c.superwhite, nil)
+      Group.new('@variable.builtin', c.purple:light():light(), g.Normal)
     end,
   },
 
