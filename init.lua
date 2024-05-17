@@ -303,14 +303,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<space>-', require('oil').toggle_float)
     end,
   },
-
-  {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end,
-  },
-
   -- See `:help gitsigns` to understand what the configuration keys do
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
