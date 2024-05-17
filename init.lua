@@ -161,6 +161,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.termguicolors = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -184,6 +186,27 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+local set = vim.opt_local
+
+-- Set local settings for terminal buffers
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', {}),
+  callback = function()
+    set.number = false
+    set.relativenumber = false
+    set.scrolloff = 0
+  end,
+})
+
+-- Open a terminal at the bottom of the screen with a fixed height.
+vim.keymap.set('n', '<leader>tb', function()
+  vim.cmd.new()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 12)
+  vim.wo.winfixheight = true
+  vim.cmd.term()
+end)
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -278,6 +301,13 @@ require('lazy').setup({
 
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
       vim.keymap.set('n', '<space>-', require('oil').toggle_float)
+    end,
+  },
+
+  {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
     end,
   },
 
@@ -808,6 +838,7 @@ require('lazy').setup({
     'tjdevries/colorbuddy.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      vim.g.background = 'dark'
       vim.cmd.colorscheme 'coolcolors'
     end,
   },
