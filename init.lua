@@ -808,43 +808,7 @@ require('lazy').setup({
     'tjdevries/colorbuddy.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      local colorbuddy = require 'colorbuddy'
-      colorbuddy.colorscheme 'custom'
-
-      local Color = colorbuddy.Color
-      local Group = colorbuddy.Group
-      local c = colorbuddy.colors
-      local g = colorbuddy.groups
-      local s = colorbuddy.styles
-
-      Color.new('white', '#f2e5bc')
-      Color.new('red', '#cc6666')
-      Color.new('pink', '#fef601')
-      Color.new('green', '#99cc99')
-      Color.new('yellow', '#f8fe7a')
-      Color.new('blue', '#81a2be')
-      Color.new('aqua', '#8ec07c')
-      Color.new('cyan', '#8abeb7')
-      Color.new('purple', '#8e6fbd')
-      Color.new('violet', '#b294bb')
-      Color.new('orange', '#de935f')
-      Color.new('brown', '#a3685a')
-      Color.new('seagreen', '#698b69')
-      Color.new('turquoise', '#698b69')
-
-      local background_string = '#111111'
-
-      Color.new('background', background_string)
-      Color.new('gray0', background_string)
-      Group.new('Normal', c.superwhite, c.gray0)
-      Group.new('@constant', c.orange, nil, s.none)
-      Group.new('@function', c.yellow, nil, s.none)
-      Group.new('@function.bracket', g.Normal, g.Normal)
-      Group.new('@keyword', c.blue, nil, s.none)
-      Group.new('@keyword.faded', g.nontext.fg:light(), nil, s.none)
-      Group.new('@property', c.blue)
-      Group.new('@variable', c.superwhite, nil)
-      Group.new('@variable.builtin', c.purple:light():light(), g.Normal)
+      vim.cmd.colorscheme 'coolcolors'
     end,
   },
 
@@ -888,38 +852,38 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
-      -- Prefer git instead of curl in order to improve connectivity in some environments
-      require('nvim-treesitter.install').prefer_git = true
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    end,
-  },
+  -- { -- Highlight, edit, and navigate code
+  --   'nvim-treesitter/nvim-treesitter',
+  --   build = ':TSUpdate',
+  --   opts = {
+  --     ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+  --     -- Autoinstall languages that are not installed
+  --     auto_install = true,
+  --     highlight = {
+  --       enable = true,
+  --       -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+  --       --  If you are experiencing weird indenting issues, add the language to
+  --       --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+  --       additional_vim_regex_highlighting = { 'ruby' },
+  --     },
+  --     indent = { enable = true, disable = { 'ruby' } },
+  --   },
+  --   config = function(_, opts)
+  --     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+  --
+  --     -- Prefer git instead of curl in order to improve connectivity in some environments
+  --     require('nvim-treesitter.install').prefer_git = true
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('nvim-treesitter.configs').setup(opts)
+  --
+  --     -- There are additional nvim-treesitter modules that you can use to interact
+  --     -- with nvim-treesitter. You should go explore a few and see what interests you:
+  --     --
+  --     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+  --     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+  --     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  --   end,
+  -- },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
