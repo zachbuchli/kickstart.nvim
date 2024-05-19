@@ -126,7 +126,7 @@ vim.opt.breakindent = true
 
 vim.opt.swapfile = false
 -- Save undo history
-vim.opt.undofile = false
+vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -301,6 +301,16 @@ require('lazy').setup({
 
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
       vim.keymap.set('n', '<space>-', require('oil').toggle_float)
+    end,
+  },
+
+  {
+    'mbbill/undotree',
+    config = function()
+      vim.opt.backup = false
+      --vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
+      vim.opt.undofile = true
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
     end,
   },
   -- See `:help gitsigns` to understand what the configuration keys do
