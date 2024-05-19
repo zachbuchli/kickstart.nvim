@@ -293,7 +293,7 @@ require('lazy').setup({
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('oil').setup {
-        columns = { 'icon', 'size', 'mtime' },
+        columns = { 'icon' },
         view_options = {
           show_hidden = true,
         },
