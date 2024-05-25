@@ -163,6 +163,9 @@ vim.opt.scrolloff = 10
 
 vim.opt.termguicolors = true
 
+vim.opt.spell = true
+vim.opt.spelllang = 'en_us'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
